@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "796383418290",
+    "firebase_url": "https://lasalleamin-default-rtdb.firebaseio.com",
+    "project_id": "lasalleamin",
+    "storage_bucket": "lasalleamin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:796383418290:android:112d5e7beadc2cb4a276ab",
+        "android_client_info": {
+          "package_name": "com.example.androidproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOXYg8M3WWjPrFRv6JWWIm3RMD-77iJSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:796383418290:android:95c4ba9243d02f90a276ab",
+        "android_client_info": {
+          "package_name": "com.example.newproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOXYg8M3WWjPrFRv6JWWIm3RMD-77iJSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
