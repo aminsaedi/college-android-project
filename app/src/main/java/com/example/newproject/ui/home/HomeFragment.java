@@ -1,6 +1,8 @@
 package com.example.newproject.ui.home;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,6 +83,16 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new MyAdapter(getContext(), issues);
         recyclerView.setAdapter(adapter);
+
+        // get username key from shared preferences
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String username = sharedPreferences.getString("username", "default");
+
+        // set username in the header
+        if (username != null) {
+            TextView usernameTextView = root.findViewById(R.id.welcomeTextView);
+            usernameTextView.setText("Welcome " + username + " to Tracklit!");
+        }
 
 
         return root;

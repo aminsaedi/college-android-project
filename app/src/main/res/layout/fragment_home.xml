@@ -23,11 +23,11 @@
 
             <!-- Short Message -->
             <TextView
-                android:id="@+id/messageTextView"
+                android:id="@+id/welcomeTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="Welcome to the Tracklit!"
+                android:text="@string/welcome_message"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
 
@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="There are 5 (3 in progress) issues assigned to you."
+                android:text="Please set your Username to see the status report."
                 android:textColor="@android:color/white"
                 android:textSize="14sp" />
 

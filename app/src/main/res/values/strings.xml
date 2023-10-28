@@ -5,7 +5,9 @@
     <string name="nav_header_title">TrackIt</string>
     <string name="nav_header_subtitle">Logged in as: me@aminsaedi.bio</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_github">Set GitHub URL</string>
+    <string name="action_username">Set Username</string>
+    <string name="welcome_message">Welcome to the Tracklit!</string>
 
     <string name="menu_issues">Issues</string>
     <string name="menu_categories">Categories</string>
