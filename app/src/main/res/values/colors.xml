@@ -7,8 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="color1">#00A9FF</color>
+    <color name="color1">#FF6200EE</color>
     <color name="color2">#89CFF3</color>
     <color name="color3">#A0E9FF</color>
     <color name="color4">#CDF5FD</color>
+    <color name="titleColor">#000000</color> <!-- Black for the title -->
+    <color name="labelColor">#555555</color> <!-- Gray for labels -->
+    <color name="textColor">#333333</color>  <!-- Dark gray for text -->
 </resources>

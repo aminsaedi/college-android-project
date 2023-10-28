@@ -3,30 +3,33 @@ package com.example.newproject.ui.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.newproject.R;
+import com.example.newproject.models.Issue;
+import com.example.newproject.ui.issueEdit.IssueEditFragment;
+
+import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     private Context context;
-    private String[] titles;
-    private String[] descriptions;
+    private ArrayList<Issue> issues = new ArrayList<>();
 
-    public MyAdapter(Context context, String[] titles, String[] descriptions) {
+    public MyAdapter(Context context, ArrayList<Issue> issues) {
         this.context = context;
-        this.titles = titles;
-        this.descriptions = descriptions;
+        this.issues = issues;
     }
 
-    public void updateData(String[] newTitles, String[] newDescriptions) {
-        this.titles = newTitles;
-        this.descriptions = newDescriptions;
+    public void updateData(ArrayList<Issue> newIssues) {
+        this.issues = newIssues;
         notifyDataSetChanged(); // Notify the RecyclerView to refresh its view
     }
 
@@ -38,34 +41,38 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.titleTextView.setText(titles[position]);
-        holder.descriptionTextView.setText(descriptions[position]);
+        holder.titleTextView.setText(issues.get(position).getTitle());
+        holder.statusTextView.setText(issues.get(position).getStatusString());
+        holder.assigneeTextView.setText(issues.get(position).getAssignee());
 
         int position1 = holder.getAdapterPosition();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(context, MyActivity.class);
-//                intent.putExtra("title", titles[position1]);
-//                intent.putExtra("description", descriptions[position1]);
-//                context.startActivity(intent);
+                // open IssueEditFragment with the selected issue
+                Bundle bundle = new Bundle();
+                bundle.putString("id", issues.get(position1).getId());
+                Navigation.findNavController(v).navigate(R.id.nav_issue_edit, bundle);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return titles.length;
+        return issues.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder  {
         TextView titleTextView;
-        TextView descriptionTextView;
+        TextView statusTextView;
+
+        TextView assigneeTextView;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.titleTextView);
-            descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
+            statusTextView = itemView.findViewById(R.id.statusTextView);
+            assigneeTextView = itemView.findViewById(R.id.assigneeTextView);
         }
     }
 }

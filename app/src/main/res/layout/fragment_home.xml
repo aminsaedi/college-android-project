@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="Your Short Message"
+                android:text="Welcome to the Tracklit!"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
 

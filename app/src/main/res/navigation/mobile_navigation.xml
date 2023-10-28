@@ -22,4 +22,10 @@
         android:name="com.example.newproject.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_members"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_issue_edit"
+        android:name="com.example.newproject.ui.issueEdit.IssueEditFragment"
+        android:label="@string/menu_issue_edit"
+        tools:layout="@layout/fragment_issue_edit" />
 </navigation>

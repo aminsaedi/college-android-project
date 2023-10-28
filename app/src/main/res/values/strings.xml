@@ -10,4 +10,7 @@
     <string name="menu_issues">Issues</string>
     <string name="menu_categories">Categories</string>
     <string name="menu_members">Members</string>
+    <string name="menu_issue_edit">Issue Edit</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

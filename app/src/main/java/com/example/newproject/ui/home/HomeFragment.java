@@ -1,6 +1,7 @@
 package com.example.newproject.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,19 +15,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.newproject.R;
 import com.example.newproject.databinding.FragmentHomeBinding;
+import com.example.newproject.models.Issue;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class HomeFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private FragmentHomeBinding binding;
 
-    private String[] titles = new String[1];
-    private String[] descriptions = new String[1];
+    private ArrayList<Issue> issues = new ArrayList<>();
 
     private MyAdapter adapter;
 
@@ -47,21 +50,25 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Clear the existing data
-                titles = new String[(int) dataSnapshot.getChildrenCount()];
-                descriptions = new String[(int) dataSnapshot.getChildrenCount()];
+                issues.clear();
 
-                int i = 0;
+
                 for (DataSnapshot issueSnapshot : dataSnapshot.getChildren()) {
                     // Assuming your Firebase structure has 'title' and 'description' fields
+                    String id = issueSnapshot.getKey();
                     String title = issueSnapshot.child("title").getValue(String.class);
                     String description = issueSnapshot.child("description").getValue(String.class);
+                    String status = issueSnapshot.child("status").getValue(String.class);
+                    String assignee = issueSnapshot.child("assignee").getValue(String.class);
+                    String categoryId = issueSnapshot.child("categoryId").getValue(String.class);
+                    Issue.Status statusEnum = Issue.Status.valueOf(status);
 
-                    titles[i] = title;
-                    descriptions[i] = description;
-                    i++;
+                    Issue issue = new Issue(id, title, description, assignee, statusEnum, categoryId);
+                    issues.add(issue);
                 }
+
                 // Update the RecyclerView adapter with the new data
-                adapter.updateData(titles, descriptions);
+                adapter.updateData(issues);
             }
 
             @Override
@@ -72,7 +79,7 @@ public class HomeFragment extends Fragment {
 
         recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new MyAdapter(getContext(), titles, descriptions);
+        adapter = new MyAdapter(getContext(), issues);
         recyclerView.setAdapter(adapter);
 
 
