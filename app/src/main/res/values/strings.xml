@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">NewProject</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">TrackIt</string>
+    <string name="nav_header_subtitle">Logged in as: me@aminsaedi.bio</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_issues">Issues</string>
+    <string name="menu_categories">Categories</string>
+    <string name="menu_members">Members</string>
+</resources>
