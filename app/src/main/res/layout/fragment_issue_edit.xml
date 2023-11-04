@@ -63,11 +63,24 @@
                 android:layout_weight="1" />
         </RadioGroup>
 
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Category"
+            android:layout_marginBottom="8dp" />
+        <Spinner
+            android:id="@+id/categorySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" />
+
         <!-- Assignee Selector -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Assignee"
+            android:layout_marginTop="15dp"
             android:layout_marginBottom="8dp" />
 
         <!-- You can implement this component to select an assignee from phone contacts list here -->
