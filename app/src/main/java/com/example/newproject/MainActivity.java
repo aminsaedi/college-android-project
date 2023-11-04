@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.example.newproject.models.Category;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -37,11 +38,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
+        binding.appBarMain.fabRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Syncing with backend server....", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            }
+        });
+
+        binding.appBarMain.fabAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAddCategoryDialog();
             }
         });
 
@@ -51,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_categories, R.id.nav_slideshow)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -62,9 +70,15 @@ public class MainActivity extends AppCompatActivity {
         // make the app bar visible only if the current fragment is the home fragment
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             if (destination.getId() == R.id.nav_home) {
-                binding.appBarMain.fab.setVisibility(View.VISIBLE);
+                binding.appBarMain.fabRefresh.setVisibility(View.VISIBLE);
             } else {
-                binding.appBarMain.fab.setVisibility(View.GONE);
+                binding.appBarMain.fabRefresh.setVisibility(View.GONE);
+            }
+
+            if (destination.getId() == R.id.nav_categories) {
+                binding.appBarMain.fabAdd.setVisibility(View.VISIBLE);
+            } else {
+                binding.appBarMain.fabAdd.setVisibility(View.GONE);
             }
         });
 
@@ -105,6 +119,44 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void showAddCategoryDialog() {
+        // Create an AlertDialog with an EditText for entering the server URL
+        Context context = this; // Use the appropriate context here
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Enter category name:");
+
+        // Create an EditText and set it as the dialog's view
+        final EditText input = new EditText(context);
+        input.setHint("Category name");
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        );
+        input.setLayoutParams(lp);
+        builder.setView(input);
+
+        // Set positive (OK) button
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String categoryName = input.getText().toString();
+                Category category = new Category("", categoryName);
+                category.save();
+                //setShareKey(type, repoUrl);
+            }
+        });
+
+        // Set negative (Cancel) button
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        // Show the dialog
+        builder.show();
+    }
 
     private void showServerUrlDialog(String type) {
         // Create an AlertDialog with an EditText for entering the server URL

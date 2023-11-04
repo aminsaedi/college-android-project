@@ -12,8 +12,8 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.newproject.ui.gallery.GalleryFragment"
+        android:id="@+id/nav_categories"
+        android:name="com.example.newproject.ui.category.CategoryFragment"
         android:label="@string/menu_categories"
         tools:layout="@layout/fragment_gallery" />
 
