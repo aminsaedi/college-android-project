@@ -35,6 +35,8 @@ public class HomeFragment extends Fragment {
 
     private MyAdapter adapter;
 
+    private String username;
+
     DatabaseReference issuesDatabase;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -43,6 +45,17 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        // get username key from shared preferences
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        username = sharedPreferences.getString("username", "default");
+
+        // set username in the header
+        if (username != null) {
+            TextView usernameTextView = root.findViewById(R.id.welcomeTextView);
+            usernameTextView.setText(username + ", Welcome to Tracklit!");
+        }
+
 
         issuesDatabase = FirebaseDatabase.getInstance().getReference("issues");
 
@@ -71,6 +84,21 @@ public class HomeFragment extends Fragment {
 
                 // Update the RecyclerView adapter with the new data
                 adapter.updateData(issues);
+                // if username is set, get the total count of issues assigned to the user
+                if (username != null) {
+                    int count = 0;
+                    int pendingCount = 0;
+                    for (Issue issue : issues) {
+                        if (issue.getAssignee().equals(username)) {
+                            count++;
+                            if (issue.getStatus() == Issue.Status.PENDING) {
+                                pendingCount++;
+                            }
+                        }
+                    }
+                    TextView countTextView = root.findViewById(R.id.statusTextView);
+                    countTextView.setText("You have " + count + " issues assigned to you, (" + pendingCount + " pending)");
+                }
             }
 
             @Override
@@ -84,15 +112,7 @@ public class HomeFragment extends Fragment {
         adapter = new MyAdapter(getContext(), issues);
         recyclerView.setAdapter(adapter);
 
-        // get username key from shared preferences
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        String username = sharedPreferences.getString("username", "default");
 
-        // set username in the header
-        if (username != null) {
-            TextView usernameTextView = root.findViewById(R.id.welcomeTextView);
-            usernameTextView.setText("Welcome " + username + " to Tracklit!");
-        }
 
 
         return root;
