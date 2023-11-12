@@ -2,7 +2,6 @@ package com.example.newproject.ui.home;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,16 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.newproject.R;
 import com.example.newproject.models.Issue;
-import com.example.newproject.ui.issueEdit.IssueEditFragment;
 
 import java.util.ArrayList;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.MyViewHolder> {
 
     private Context context;
     private ArrayList<Issue> issues = new ArrayList<>();
 
-    public MyAdapter(Context context, ArrayList<Issue> issues) {
+    public IssuesAdapter(Context context, ArrayList<Issue> issues) {
         this.context = context;
         this.issues = issues;
     }

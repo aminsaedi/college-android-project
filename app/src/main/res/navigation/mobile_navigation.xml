@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.example.newproject.ui.slideshow.SlideshowFragment"
+        android:name="com.example.newproject.ui.member.SlideshowFragment"
         android:label="@string/menu_members"
         tools:layout="@layout/fragment_slideshow" />
 
