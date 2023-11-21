@@ -3,6 +3,7 @@ package com.example.newproject;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
@@ -24,6 +25,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.newproject.databinding.ActivityMainBinding;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -163,14 +169,14 @@ public class MainActivity extends AppCompatActivity {
         Context context = this; // Use the appropriate context here
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         if (type == "repo_url")
-            builder.setTitle("Enter GitHub repo URL");
+            builder.setTitle("Enter GitHub repo address (e.g. aminsaedi/go-git)");
         else if (type == "username")
             builder.setTitle("Enter Your account username");
 
         // Create an EditText and set it as the dialog's view
         final EditText input = new EditText(context);
         if (type == "repo_url")
-            input.setHint("Enter GitHub repo URL");
+            input.setHint("Enter GitHub repo address (e.g. aminsaedi/go-git)");
         else if (type == "username")
             input.setHint("Enter Your account username");
         String savedServerUrl = getSharedKey(type);
@@ -211,12 +217,62 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(key, value);
         editor.apply();
+
+        if (key == "repo_url") {
+            String[] parts = value.split("/");
+            String owner = parts[0];
+            String repo = parts[1];
+            new SendGetRequest().execute(owner, repo);
+        }
+
+
     }
 
     // You can retrieve the URL using a method like this
     private String getSharedKey(String key) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this); // Use the appropriate context here
         return preferences.getString(key, "");
+    }
+
+    private static class SendGetRequest extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... params) {
+            String key = params[0];
+            String value = params[1];
+
+            try {
+                // URL for the POST request
+                URL url = new URL("http://toronto.aminsaedi.bio:8989/?owner=" + key + "&repo=" + value);
+
+                // Open a connection
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+                connection.setRequestMethod("GET");
+
+                // Get the response code (optional)
+                int responseCode = connection.getResponseCode();
+
+                // Read the response
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line;
+                StringBuilder response = new StringBuilder();
+
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+
+                // You can add more handling based on the response if needed
+
+                // Close the connection and reader
+                reader.close();
+                connection.disconnect();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
     }
 
 

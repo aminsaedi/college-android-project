@@ -95,7 +95,7 @@ public class HomeFragment extends Fragment {
                         }
                     }
                     TextView countTextView = root.findViewById(R.id.statusTextView);
-                    countTextView.setText("You have " + count + " issues assigned to you, (" + pendingCount + " pending)");
+                    countTextView.setText("You have " + count + " issues assigned to yourself, (" + pendingCount + " pending)");
                 }
             }
 
