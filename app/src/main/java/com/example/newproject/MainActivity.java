@@ -47,8 +47,23 @@ public class MainActivity extends AppCompatActivity {
         binding.appBarMain.fabRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Syncing with backend server....", Snackbar.LENGTH_LONG)
+
+
+                String repoUrl = getSharedKey("repo_url");
+
+                if (!repoUrl.isEmpty()) {
+                    String[] parts = repoUrl.split("/");
+                    String owner = parts[0];
+                    String repo = parts[1];
+                    new SendGetRequest().execute(owner, repo);
+                    Snackbar.make(view, "Syncing with backend server....", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    return;
+                }
+
+                Snackbar.make(view, "Please set the repo url first", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
             }
         });
 
