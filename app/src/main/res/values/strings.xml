@@ -3,7 +3,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">TrackIt</string>
-    <string name="nav_header_subtitle">Logged in as: me@aminsaedi.bio</string>
+    <string name="nav_header_subtitle">Logged in as: _</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_github">Set GitHub URL</string>
     <string name="action_username">Set Username</string>
